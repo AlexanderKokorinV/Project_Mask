@@ -42,4 +42,5 @@ def test_get_date(date_str):
     ("", "Ошибка")
 ])
 def test_get_date_par(date_str, expected):
+    """Тест работы функции при различных параметрах, вызывающих ошибку"""
     assert get_date(date_str) == expected
