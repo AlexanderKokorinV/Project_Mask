@@ -13,9 +13,19 @@ def test_mask_account_card(card):
     ("Master%ard 7158300734726758", "Ошибка")
 ])
 def test_mask_account_card_par(card, expected):
+    """Тест работы функции при различных параметрах, вызывающих ошибку"""
     assert mask_account_card(card) == expected
 
 
 def test_mask_account_card(account):
     """Тест работы функции в обычном режиме"""
     assert mask_account_card(account) == "Счет **4305"
+
+@pytest.mark.parametrize("account_number, expected", [
+    ("736", "Ошибка"),
+    ("70007922896087463567253573654108430135874305", "Ошибка"),
+    ("", "Ошибка")
+])
+def test_mask_account_card_par(account_number, expected):
+    """Тест работы функции при различных параметрах, вызывающих ошибку"""
+    assert mask_account_card(account_number) == expected
