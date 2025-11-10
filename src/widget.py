@@ -1,14 +1,18 @@
+import re
 from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(type_number: str) -> str:
     """Принимает тип и номер карты или счета и возвращает замаскированный номер"""
     if type_number.startswith("Счет"):
-        number = type_number[6:]  # выделяем номер из строки
+        number = type_number[5:]  # выделяем номер из строки
         mask_account = type_number[:5] + get_mask_account(number)
     else:
         number = type_number[-16:]  # выделяем номер из строки
-        mask_account = type_number[:-16] + get_mask_card_number(number)
+        if re.fullmatch(r'[а-яА-Яa-zA-Z \s-]+', type_number[:-16]):
+            mask_account = type_number[:-16] + get_mask_card_number(number)
+        else:
+            mask_account = "Ошибка"
     return mask_account
 
 
