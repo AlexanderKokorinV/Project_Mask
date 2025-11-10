@@ -11,7 +11,7 @@ def mask_account_card(type_number: str) -> str:
         else:
             mask_account = "Ошибка"
     else:
-        if re.fullmatch(r'[а-яА-Яa-zA-Z \s-]+', type_number[:-16]):
+        if re.fullmatch(r"[а-яА-Яa-zA-Z \s-]+", type_number[:-16]):
             number = type_number[-16:]  # выделяем номер из строки
             mask_account = type_number[:-16] + get_mask_card_number(number)
         else:
@@ -21,5 +21,8 @@ def mask_account_card(type_number: str) -> str:
 
 def get_date(date_string: str) -> str:
     """Принимает строку с датой и возвращает дату в заданном формате"""
-    formatted_date = date_string[8:10] + "." + date_string[5:7] + "." + date_string[:4]
+    if date_string[8:10].isdigit() and date_string[5:7].isdigit() and date_string[:4].isdigit() and len(date_string) == 26:
+        formatted_date = date_string[8:10] + "." + date_string[5:7] + "." + date_string[:4]
+    else:
+        formatted_date = "Ошибка"
     return formatted_date

@@ -29,3 +29,17 @@ def test_mask_account_card(account):
 def test_mask_account_card_par(account_number, expected):
     """Тест работы функции при различных параметрах, вызывающих ошибку"""
     assert mask_account_card(account_number) == expected
+
+
+def test_get_date(date_str):
+    """Тест работы функции в обычном режиме"""
+    assert get_date(date_str) == "11.03.2024"
+
+@pytest.mark.parametrize("date_str, expected", [
+    ("736", "Ошибка"),
+    ("70007922896087463567253573654108430135874305", "Ошибка"),
+    ("2024-0sEdfT02:26:18.671407", "Ошибка"),
+    ("", "Ошибка")
+])
+def test_get_date_par(date_str, expected):
+    assert get_date(date_str) == expected

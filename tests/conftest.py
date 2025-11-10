@@ -15,3 +15,7 @@ def card():
 @pytest.fixture
 def account():
     return "Счет 73654108430135874305"
+
+@pytest.fixture
+def date_str():
+    return "2024-03-11T02:26:18.671407"
