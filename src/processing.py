@@ -23,11 +23,11 @@ def filter_by_state(
 
 
 def sort_by_date(
-    list_operations: List[Dict[str, Union[str, int]]], ascending: bool = True
-) -> List[Dict[str, Union[str, int]]]:
+    list_operations: Union[List[Dict[str, Union[str, int]]], str], ascending: bool = True
+) -> Union[List[Dict[str, Union[str, int]]], str]:
     """Сортирует список словарей по дате, по умолчанию - убывание"""
     try:
-        filtered_operations = []
+        sorted_operations = []
         for operation in list_operations:
             if "date" in operation:
                 if ascending is True:
