@@ -12,5 +12,5 @@ def get_mask_account(account: str) -> str:
     if account.isdigit() and len(account) == 20:
         mask_account = "**" + account[-4:]
     else:
-       mask_account = "Ошибка"
+        mask_account = "Ошибка"
     return mask_account
