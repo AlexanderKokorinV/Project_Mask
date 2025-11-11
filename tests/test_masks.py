@@ -3,7 +3,7 @@ import pytest
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def test_get_mask_number(card_numbers):
+def test_get_mask_number(card_numbers: str, expected: str) -> None:
     """Тест работы функции в обычном режиме"""
     assert get_mask_card_number(card_numbers) == "7000 79** **** 6361"
 
@@ -17,12 +17,12 @@ def test_get_mask_number(card_numbers):
         ("", "Ошибка"),
     ],
 )
-def test_get_mask_card_number_par(card_number, expected):
+def test_get_mask_card_number_par(card_number: str, expected: str) -> None:
     """Тест работы функции при различных параметрах, вызывающих ошибку"""
     assert get_mask_card_number(card_number) == expected
 
 
-def test_get_mask_account(account_numbers):
+def test_get_mask_account(account_numbers: str, expected: str) -> None:
     """Тест работы функции в обычном режиме"""
     assert get_mask_account(account_numbers) == "**4305"
 
@@ -36,6 +36,6 @@ def test_get_mask_account(account_numbers):
         ("", "Ошибка"),
     ],
 )
-def test_get_mask_account_par(account_number, expected):
+def test_get_mask_account_par(account_number: str, expected: str) -> None:
     """Тест работы функции при различных параметрах, вызывающих ошибку"""
     assert get_mask_account(account_number) == expected

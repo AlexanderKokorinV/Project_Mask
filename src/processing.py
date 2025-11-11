@@ -3,7 +3,7 @@ from typing import Dict, List, Union
 
 def filter_by_state(
     list_operations: List[Dict[str, Union[str, int]]], state: str = "EXECUTED"
-) -> List[Dict[str, Union[str, int]]]:
+) -> Union[List[Dict[str, Union[str, int]]], str]:
     """Отфильтровывает список словарей по заданному значению ключа state"""
     try:
         filtered_operations = []
@@ -23,13 +23,13 @@ def filter_by_state(
 
 
 def sort_by_date(
-    list_operations: Union[List[Dict[str, Union[str, int]]], str], ascending: bool = True
+    list_operations: List[Dict[str, Union[str, int]]], ascending: bool = True
 ) -> Union[List[Dict[str, Union[str, int]]], str]:
     """Сортирует список словарей по дате, по умолчанию - убывание"""
     try:
         sorted_operations = []
         for operation in list_operations:
-            if "date" in operation:
+            if len(list_operations) > 0 and "date" in operation:
                 if ascending is True:
                     sorted_operations = sorted(
                         list_operations, key=lambda operation: operation.get("date"), reverse=True
