@@ -24,6 +24,12 @@ git clone https://github.com/AlexanderKokorinV/Project_Mask.git
 pip install -r requirements.txt
 ```
 
+## Тестирование
+Проект покрыт юнит-тестами pytest. Для их запуска выполните команду:
+```
+pytest
+```
+
 ## Лицензия:
 
 Этот проект лицензирован по [лицензии MIT](LICENSE).
