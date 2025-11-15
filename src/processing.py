@@ -32,10 +32,10 @@ def sort_by_date(
             if len(list_operations) > 0 and "date" in operation:
                 if ascending is True:
                     sorted_operations = sorted(
-                        list_operations, key=lambda operation: operation.get("date"), reverse=True
+                        list_operations, key=lambda operation: operation.get("date", "Ошибка"), reverse=True
                     )
                 elif ascending is False:
-                    sorted_operations = sorted(list_operations, key=lambda operation: operation.get("date"))
+                    sorted_operations = sorted(list_operations, key=lambda operation: operation.get("date", "Ошибка"))
             else:
                 raise ValueError("Ошибка")
                 break

@@ -1,14 +1,14 @@
-from typing import List, Dict, Generator
+from typing import List, Dict, Generator, Union
 
 
-def filter_by_currency(transactions: List[Dict], currency: str) -> Generator[Dict]:
+def filter_by_currency(transactions: List[Dict], currency: str) -> Generator:
     """Функция возвращает итератор, который поочередно выдает транзакции с
     заданной валютой операции"""
     for transaction in transactions:
-        if transaction.get("operationAmount").get("currency").get("code") == currency:
+        if transaction.get("operationAmount", "Ошибка").get("currency", "Ошибка").get("code", "Ошибка") == currency:
             yield transaction
 
-def transaction_descriptions(transactions: List[Dict]) -> Generator[str]:
+def transaction_descriptions(transactions: List[Dict]) -> Generator:
     """Функция-генератор, которая принимает список словарей с транзакциями и
     возвращает описание каждой операции по очереди"""
     for transaction in transactions:
