@@ -1,8 +1,8 @@
 import pytest
-from typing import List, Dict
-from src.generators import filter_by_currency
+from typing import List, Dict, Any
+from src.generators import filter_by_currency, transaction_descriptions
 
-def test_filter_by_currency(transactions: List[Dict]) -> None:
+def test_filter_by_currency(transactions: List[Dict[str, Any]]) -> None:
     """Тесты, проверяющие, что функция корректно фильтрует транзакции по заданной валюте"""
     result_usd = filter_by_currency(transactions, currency="USD")
     result_rub = filter_by_currency(transactions, currency="RUB")
@@ -69,10 +69,62 @@ def test_filter_by_currency(transactions: List[Dict]) -> None:
         )
     ]
 )
-def test_filter_by_currency_par(transactions: List[Dict], currency: str, expected: str) -> None:
+def test_filter_by_currency_par(transactions: List[Dict[str, Any]], currency: str, expected: str) -> None:
+    """Тест работы функции при различных параметрах, вызывающих ошибку"""
     for _ in range(3):
         assert next(filter_by_currency(transactions, currency), "Завершение итерации") == expected
 
+def test_transaction_descriptions(transactions: List[Dict[str, Any]]) -> None:
+    """Тесты, проверяющие, что функция возвращает корректные описания для каждой транзакции"""
+    description = transaction_descriptions(transactions)
+    assert next(description) == "Перевод организации"
+    assert next(description) == "Перевод со счета на счет"
+    assert next(description) == "Перевод со счета на счет"
+    assert next(description) == "Перевод с карты на карту"
+    assert next(description) == "Перевод организации"
 
-
-
+@pytest.mark.parametrize("transactions, expected",
+    [
+        (
+                {
+                "id": 939719570,
+                "state": "EXECUTED",
+                "date": "2018-06-30T02:08:58.425572",
+                "operationAmount": {
+                    "amount": "9824.07",
+                    "currency": {
+                        "name": "руб.",
+                        "code": "RUB"
+                    }
+                },
+                "description": "",
+                "from": "Счет 75106830613657916952",
+                "to": "Счет 11776614605963066702"
+            }, "Ошибка"
+        ),
+        (
+                {
+                "id": 939719570,
+                "state": "EXECUTED",
+                "date": "2018-06-30T02:08:58.425572",
+                "operationAmount": {
+                    "amount": "9824.07",
+                    "currency": {
+                        "name": "руб.",
+                        "code": "RUB"
+                    }
+                },
+                "description": "123Описание",
+                "from": "Счет 75106830613657916952",
+                "to": "Счет 11776614605963066702"
+            }, "Ошибка"
+        ),
+        (
+                {
+                }, "Завершение итерации"
+        )
+    ]
+)
+def test_transaction_descriptions_par(transactions: List[Dict[str, Any]], expected: str) -> None:
+    for _ in range(3):
+        assert next(transaction_descriptions(transactions), "Завершение итерации") == expected

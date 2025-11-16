@@ -1,6 +1,6 @@
+import re
 from typing import List, Dict, Generator, Iterator, Any
 
-from pycodestyle import continued_indentation
 
 
 def filter_by_currency(transactions: List[Dict[str, Any]], currency: str) -> Iterator:
@@ -21,9 +21,17 @@ def filter_by_currency(transactions: List[Dict[str, Any]], currency: str) -> Ite
 def transaction_descriptions(transactions: List[Dict[str, Any]]) -> Iterator:
     """Функция-генератор, которая принимает список словарей с транзакциями и
     возвращает описание каждой операции по очереди"""
-    for transaction in transactions:
-        transaction_description = transaction.get("description", "Ошибка")
-        yield transaction_description
+    try:
+        for transaction in transactions:
+            if len(transaction.get("description", "Ошибка")) > 0 and re.fullmatch(r"[а-яА-Яa-zA-Z \s-]+", transaction.get("description", "Ошибка")):
+                transaction_description = transaction.get("description", "Ошибка")
+                yield transaction_description
+            else:
+                raise ValueError("Ошибка")
+    except ValueError:
+        yield "Ошибка"
+    except AttributeError:
+        yield "Ошибка"
 
 
 def card_number_generator(start:int, stop:int) -> Generator[str, None, None]:
