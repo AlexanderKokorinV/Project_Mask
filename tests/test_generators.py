@@ -1,6 +1,6 @@
 import pytest
 from typing import List, Dict, Any
-from src.generators import filter_by_currency, transaction_descriptions
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 def test_filter_by_currency(transactions: List[Dict[str, Any]]) -> None:
     """Тесты, проверяющие, что функция корректно фильтрует транзакции по заданной валюте"""
@@ -126,5 +126,31 @@ def test_transaction_descriptions(transactions: List[Dict[str, Any]]) -> None:
     ]
 )
 def test_transaction_descriptions_par(transactions: List[Dict[str, Any]], expected: str) -> None:
+    """Тест работы функции при различных параметрах, вызывающих ошибку"""
     for _ in range(3):
         assert next(transaction_descriptions(transactions), "Завершение итерации") == expected
+
+
+def test_card_number_generator(start: int, stop: int) -> None:
+    """Тесты, которые проверяют, что генератор выдает правильные номера карт
+    в заданном диапазоне"""
+    card_number = card_number_generator(start, stop)
+    assert next(card_number) == "0000 0000 0000 0001"
+    assert next(card_number) == "0000 0000 0000 0002"
+    assert next(card_number) == "0000 0000 0000 0003"
+    assert next(card_number) == "0000 0000 0000 0004"
+    assert next(card_number) == "0000 0000 0000 0005"
+
+@pytest.mark.parametrize("start, stop, expected",
+    [
+    (0, 0, "Неверные значения диапазона"),
+    (0, 1, "Неверные значения диапазона"),
+    (1, 0, "Неверные значения диапазона"),
+    (3, 2, "Неверные значения диапазона")
+])
+def test_card_number_generator_par(start: int, stop: int, expected: str) -> None:
+    """Тест работы функции при различных параметрах, вызывающих ошибку"""
+    for _ in range(4):
+        card_number = card_number_generator(start, stop)
+        assert next(card_number) == expected
+

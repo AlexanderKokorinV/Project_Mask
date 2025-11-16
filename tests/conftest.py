@@ -129,3 +129,11 @@ def transactions() -> list[dict]:
             "to": "Счет 14211924144426031657"
         }
     ]
+
+@pytest.fixture
+def start() -> int:
+    return 1
+
+@pytest.fixture
+def stop() -> int:
+    return 5

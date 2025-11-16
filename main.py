@@ -121,6 +121,6 @@ if __name__ == "__main__":
     for _ in range(5):
         print(next(descriptions, "Завершение итерации"))
 
-    for card_number in card_number_generator(1, 5):
+    for card_number in card_number_generator(1, 1):
         print(card_number)
 
