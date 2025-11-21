@@ -104,10 +104,12 @@
              def apply_get_mask_card_number(card_number: str) -> str:
                  return get_mask_card_number(card_number)
              result = apply_get_mask_card_number("7000792289606361")
+             
        Ожидаемый вывод в лог-файл mylog.txt при успешном выполнении:
-             >>>apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+          >>>apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+             
        Ожидаемый вывод при ошибке:
-             >>>apply_get_mask_card_number error: ValueError. Inputs: ('70007922896063&1',), {}
+          >>>apply_get_mask_card_number error: ValueError. Inputs: ('70007922896063&1',), {}
          ```
 ## Установка:
 
