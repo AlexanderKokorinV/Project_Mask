@@ -1,8 +1,10 @@
+from typing import Dict, List, Union
+
+from src.decorators import log
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
-from src.decorators import log
 
 transactions = [
     {
@@ -93,19 +95,24 @@ if __name__ == "__main__":
     for card_number in card_number_generator(1, 5):
         print(card_number)
 
-
     @log(filename="mylog.txt")
-    def apply_filter_by_state(list_operations: list, state: str) -> list:
+    def apply_filter_by_state(
+        list_operations: List[Dict[str, Union[str, int]]], state: str
+    ) -> Union[List[Dict[str, Union[str, int]]], str]:
         return filter_by_state(list_operations, state)
-    result_1 = apply_filter_by_state([
-        {"id": 41428829, "state": "CANCELED", "date": "2019-07-03T18:35:29.512364"},
-        {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
-        {"id": 594226727, "state": "EXECUTED", "date": "2018-09-12T21:27:25.241689"},
-        {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
-    ], "CANCELED")
 
+    result_1 = apply_filter_by_state(
+        [
+            {"id": 41428829, "state": "CANCELED", "date": "2019-07-03T18:35:29.512364"},
+            {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+            {"id": 594226727, "state": "EXECUTED", "date": "2018-09-12T21:27:25.241689"},
+            {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+        ],
+        "CANCELED",
+    )
 
     @log(filename="")
     def apply_get_mask_card_number(card_number: str) -> str:
-        return get_mask_card_number(card_number)
+        return get_mask_card_number("7000792289606&8")
+
     result_2 = apply_get_mask_card_number("7000792289606&8")
