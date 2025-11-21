@@ -13,10 +13,8 @@ def filter_by_state(
                     filtered_operations.append(operation)
                 elif operation.get("state") not in ["EXECUTED", "CANCELED"]:
                     raise ValueError("Ошибка")
-                    break
             else:
                 raise ValueError("Ошибка")
-                break
     except ValueError:
         return "Ошибка"
     return filtered_operations
