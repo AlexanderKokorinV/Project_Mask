@@ -113,6 +113,6 @@ if __name__ == "__main__":
 
     @log(filename="")
     def apply_get_mask_card_number(card_number: str) -> str:
-        return get_mask_card_number("7000792289606&8")
+        return get_mask_card_number(card_number)
 
-    result_2 = apply_get_mask_card_number("7000792289606&8")
+    result_2 = apply_get_mask_card_number("70007922896063&1")
