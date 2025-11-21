@@ -9,6 +9,8 @@ def test_log_fail(capsys: Any) -> None:
 
     @log(filename="")
     def apply_get_mask_card_number(card_number: str) -> str:
+        """Функция принимает аргумент (строку с номером банковской карты)
+        и возвращает результат выполнения функции get_mask_card_number из модуля masks"""
         return get_mask_card_number(card_number)
 
     apply_get_mask_card_number("7000792289606&8")
@@ -24,6 +26,8 @@ def test_log_success(capsys: Any) -> None:
 
     @log(filename="")
     def apply_get_mask_card_number(card_number: str) -> str:
+        """Функция принимает аргумент (строку с номером банковской карты)
+        и возвращает результат выполнения функции get_mask_card_number из модуля masks"""
         return get_mask_card_number(card_number)
 
     apply_get_mask_card_number("7000792289606361")
@@ -39,6 +43,8 @@ def test_log_in_file_err() -> None:
 
     @log(filename="mylog.txt")
     def apply_get_mask_card_number(card_number: str) -> str:
+        """Функция принимает аргумент (строку с номером банковской карты)
+        и возвращает результат выполнения функции get_mask_card_number из модуля masks"""
         return get_mask_card_number(card_number)
 
     apply_get_mask_card_number("700079228960^&@1")
@@ -54,6 +60,8 @@ def test_log_in_file_suc() -> None:
 
     @log(filename="mylog.txt")
     def apply_get_mask_card_number(card_number: str) -> str:
+        """Функция принимает аргумент (строку с номером банковской карты)
+        и возвращает результат выполнения функции get_mask_card_number из модуля masks"""
         return get_mask_card_number(card_number)
 
     apply_get_mask_card_number("7000792289606361")
