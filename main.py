@@ -1,10 +1,13 @@
 from typing import Dict, List, Union
+import os
 
 from src.decorators import log
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
+from src.utils import get_transactions_from_json
+from src.external_api import get_amount_in_rubles
 
 transactions = [
     {
@@ -53,6 +56,22 @@ transactions = [
         "to": "Счет 14211924144426031657",
     },
 ]
+
+transaction = {
+    "id": 939719570,
+    "state": "EXECUTED",
+    "date": "2018-06-30T02:08:58.425572",
+    "operationAmount": {
+      "amount": "9824.07",
+      "currency": {
+        "name": "EUR",
+        "code": "EUR"
+      }
+    },
+    "description": "Перевод организации",
+    "from": "Счет 75106830613657916952",
+    "to": "Счет 11776614605963066702"
+  }
 
 if __name__ == "__main__":
     print(get_mask_card_number("7000792289606361"))
@@ -116,3 +135,8 @@ if __name__ == "__main__":
         return get_mask_card_number(card_number)
 
     result_2 = apply_get_mask_card_number("70007922896063&1")
+
+    PATH_TO_JASON_FILE = os.path.join(os.path.dirname(__file__), "data", "operations.json") # Формируем путь к файлу operations.json
+    print(get_transactions_from_json(PATH_TO_JASON_FILE))
+
+    print(get_amount_in_rubles(transaction)) #конвертируем сумму из евро в рубли
