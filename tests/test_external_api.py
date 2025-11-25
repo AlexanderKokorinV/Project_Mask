@@ -90,3 +90,8 @@ def test_get_amount_in_rubles_usd(mock_get: Mock, account_numbers: str) -> None:
 
     # Проверяем, что requests.get был вызван только один раз с заданными аргументами
     mock_get.assert_called_once_with(expected_url, headers=expected_headers, data=expected_payload)
+
+
+def test_get_amount_in_rubles_rub(transaction_rub: Transaction) -> None:
+    """Тест работы функции при обработке рублевых транзакций"""
+    assert get_amount_in_rubles(transaction_rub) == 97853.86

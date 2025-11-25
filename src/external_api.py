@@ -37,22 +37,13 @@ def get_amount_in_rubles(transaction: Transaction) -> Any:
     для получения текущего курса валют и конвертации суммы в рубли.
     """
     if transaction["operationAmount"]["currency"]["code"] == "RUB":
-        return transaction["operationAmount"]["amount"]
-    elif transaction["operationAmount"]["currency"]["code"] == "USD":
-        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount={transaction["operationAmount"]["amount"]}"
+        return float(transaction["operationAmount"]["amount"])
+    elif transaction["operationAmount"]["currency"]["code"] == "USD" or transaction["operationAmount"]["currency"]["code"] == "EUR":
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={transaction['operationAmount']['currency']['code']}&amount={transaction['operationAmount']['amount']}"
         payload: Dict[str, Any] = {}
         headers = {  # Создание заголовка с токеном доступа API
             "apikey": api_key,
         }
         response = requests.get(url, headers=headers, data=payload)  # Отправка GET-запроса к API
-        result = response.json()["result"]  # Обработка полученного от API ответа
-        return result
-    elif transaction["operationAmount"]["currency"]["code"] == "EUR":
-        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=EUR&amount={transaction["operationAmount"]["amount"]}"
-        payload = {}
-        headers = {
-            "apikey": api_key,
-        }
-        response = requests.get(url, headers=headers, data=payload)
-        result = response.json()["result"]
+        result = float(response.json()["result"])  # Обработка полученного от API ответа
         return result
