@@ -1,8 +1,7 @@
 import json
-import os
-import sys
-from typing import Any
 import logging
+import os
+from typing import Any
 
 utils_logger = logging.getLogger("utils")
 utils_logger.setLevel(logging.DEBUG)
@@ -24,11 +23,13 @@ def get_transactions_from_json(PATH_TO_JASON_FILE: str) -> Any:
     функция возвращает пустой список
     """
     try:
-        utils_logger.info(f"Принимаем путь к файлу operations.json и возвращаем список словарей с данными о финансовых транзакциях")
+        utils_logger.info(
+            "Принимаем путь к файлу operations.json и возвращаем список словарей с данными о финансовых транзакциях"
+        )
         with open(PATH_TO_JASON_FILE, encoding="utf-8") as file:
             list_transactions = json.load(file)
             return list_transactions
-    except FileNotFoundError as e:
+    except FileNotFoundError:
         utils_logger.error("Ошибка: файл не найден")
         return []
     except ValueError:
