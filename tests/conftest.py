@@ -1,4 +1,26 @@
+from typing import TypedDict
+
 import pytest
+
+
+class Currency(TypedDict):
+    name: str
+    code: str
+
+
+class OperationAmount(TypedDict):
+    amount: str
+    currency: Currency
+
+
+class Transaction(TypedDict):
+    id: int
+    state: str
+    date: str
+    operationAmount: OperationAmount
+    description: str
+    from_: str
+    to: str
 
 
 @pytest.fixture
@@ -110,3 +132,16 @@ def start() -> int:
 @pytest.fixture
 def stop() -> int:
     return 5
+
+
+@pytest.fixture
+def transaction_rub() -> Transaction:
+    return {
+        "id": 667307132,
+        "state": "EXECUTED",
+        "date": "2019-07-13T18:51:29.313309",
+        "operationAmount": {"amount": "97853.86", "currency": {"name": "руб.", "code": "RUB"}},
+        "description": "Перевод с карты на счет",
+        "from_": "Maestro 1308795367077170",
+        "to": "Счет 96527012349577388612",
+    }
