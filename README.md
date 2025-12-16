@@ -21,9 +21,9 @@
           currency - код валюты, по которой требуется отфильтровать список транзакций (например, "USD").
 
           ```
-             usd_transactions = filter_by_currency(transactions, currency="USD") #создаем переменную, в которую будет передаватья результат работы функции при каждой итерации
-             for _ in range(2): #задаем количество итераций
-                 print(next(usd_transactions)) #выводим результат каждой итерации поочередно
+             usd_transactions = filter_by_currency(transactions, currency="USD") # Создаем переменную, в которую будет передаватья результат работы функции при каждой итерации
+             for _ in range(2): # Задаем количество итераций
+                 print(next(usd_transactions)) # Выводим результат каждой итерации поочередно
 
           >>>       {
                        "id": 939719570,
@@ -62,9 +62,9 @@
 
           ```
               transactions - список словарей, содержащий набор данных о каждой транзакции.
-              descriptions = transaction_descriptions(transactions) #создаем переменную, в которую будет передаватья результат работы функции при каждой итерации
-              for _ in range(5): #задаем количество итераций
-                  print(next(descriptions)) #выводим результат каждой итерации поочередно
+              descriptions = transaction_descriptions(transactions) # Создаем переменную, в которую будет передаватья результат работы функции при каждой итерации
+              for _ in range(5): # Задаем количество итераций
+                  print(next(descriptions)) # Выводим результат каждой итерации поочередно
           >>> Перевод организации
               Перевод со счета на счет
               Перевод со счета на счет
@@ -77,8 +77,8 @@
     *Пример использования функции card_number_generator:*
 
           ```
-             for card_number in card_number_generator(1, 5): #задаем начальное и конечное значения для генерации диапазона номеров  
-             print(card_number) #поочередно выводим результат каждой итерации согласно заданному диапазону
+             for card_number in card_number_generator(1, 5): # Задаем начальное и конечное значения для генерации диапазона номеров  
+             print(card_number) # Поочередно выводим результат каждой итерации согласно заданному диапазону
 
           >>> 0000 0000 0000 0001
               0000 0000 0000 0002
@@ -117,7 +117,7 @@
     ```
     if __name__ == "__main__":
         PATH_TO_JASON_FILE = os.path.join(os.path.dirname(__file__), "data", "operations.json")  # Формируем путь к файлу operations.json
-        print(get_transactions_from_json(PATH_TO_JASON_FILE)) #Выводим результат на экран
+        print(get_transactions_from_json(PATH_TO_JASON_FILE)) # Выводим результат на экран
    ```
 7. Модуль external_api, содержащий функцию get_amount_in_rubles. Функция принимает на вход транзакцию и возвращает сумму транзакции в рублях (тип данных: float).
     Если транзакция была в USD или EUR, происходит обращение к внешнему API (Exchange Rates Data API) для получения текущего курса валют и конвертации суммы в рубли.
@@ -136,7 +136,18 @@
    if __name__ == "__main__":
         print(get_amount_in_rubles(transaction))  # конвертируем сумму из евро в рубли
    ```
-8. В текущей версии проекта созданы объекты логирования для модулей masks.py и utils.py с использованием библиотеки logging.
+8. Для модулей masks.py и utils.py созданы объекты логирования с использованием библиотеки logging.
+9. В текущей версии проекта реализована поддержка форматов данных csv и excel. Для этого создан модуль operations, содержащий функции get_operations_from_csv и get_operations_from_excel соответственно. Данные функции принимают на вход путь до CSV-файла или XLSX-файла и возвращают список словарей с данными
+    о финансовых транзакциях. Если файл пустой, содержит не список или не найден, функция возвращает пустой список. В папке data в корне проекта расположены соответствующие файлы (transactions.csv и transactions_excel.xlsx).
+    Пример использования функций:
+    ```
+    if __name__ == "__main__":
+        PATH_TO_CSV_FILE = os.path.join(os.path.dirname(__file__), "data", "transactions.csv") # Формируем путь к CSV-файлу transactions.csv
+        print(get_operations_from_csv(PATH_TO_CSV_FILE)) # Выводим результат чтения CSV-файла на экран
+   
+        PATH_TO_EXCEL_FILE = os.path.join(os.path.dirname(__file__), "data", "transactions_excel.xlsx") # Формируем путь к XLSX-файлу transactions_excel.xlsx
+        print(get_operations_from_excel(PATH_TO_EXCEL_FILE)) # Выводим результат чтения XLSX-файла на экран
+   ```
 
 ## Установка:
 
