@@ -8,4 +8,12 @@ Finish function apply_filter_by_state at 2025-12-16 10:48:26.140833Start functio
 apply_filter_by_state ok. Result: [{'id': 41428829, 'state': 'CANCELED', 'date': '2019-07-03T18:35:29.512364'}, {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
 Finish function apply_filter_by_state at 2025-12-16 11:08:25.669077Start function apply_filter_by_state at 2025-12-16 11:11:33.449308
 apply_filter_by_state ok. Result: [{'id': 41428829, 'state': 'CANCELED', 'date': '2019-07-03T18:35:29.512364'}, {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
-Finish function apply_filter_by_state at 2025-12-16 11:11:33.450205
+Finish function apply_filter_by_state at 2025-12-16 11:11:33.450205Start function apply_get_mask_card_number at 2025-12-16 16:25:20.767118
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-16 16:25:20.768261Start function apply_get_mask_card_number at 2025-12-16 16:25:20.769653
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-16 16:25:20.770369Start function apply_get_mask_card_number at 2025-12-16 16:25:58.883452
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-16 16:25:58.884483Start function apply_get_mask_card_number at 2025-12-16 16:25:58.886339
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-16 16:25:58.887226

@@ -1,5 +1,6 @@
-import pandas as pd
 import os
+
+import pandas as pd
 
 PATH_TO_CSV_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "transactions.csv")
 PATH_TO_EXCEL_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "transactions_excel.xlsx")

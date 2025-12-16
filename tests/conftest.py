@@ -145,3 +145,60 @@ def transaction_rub() -> Transaction:
         "from_": "Maestro 1308795367077170",
         "to": "Счет 96527012349577388612",
     }
+
+
+@pytest.fixture
+def mock_source_data():
+    """Фикстура, предоставляющая исходные данные для mock DataFrame."""
+    return {  # Создаем фиктивный DataFrame, который будет "возвращать" mock_read_csv/mock_read_excel
+        "id": [1245327.0, 134341.0],
+        "state": ["PENDING", "CANCELED"],
+        "date": ["2021-03-09T00:56:48Z", "2022-03-03T08:41:08Z"],
+        "amount": [24252.0, 13642.0],
+        "currency_name": ["Somoni", "Peso"],
+        "currency_code": ["TJS", "COP"],
+        "from": ["Discover 3233958335206913", "Visa 9770850749183268"],
+        "to": ["Visa 6269545625045856", "American Express 0522499169905654"],
+        "description": ["Перевод с карты на карту", "Перевод с карты на карту"],
+    }
+
+
+@pytest.fixture
+def expected_list_of_dicts():
+    """Фикстура, предоставляющая ожидаемый итоговый результат."""
+    return [  # Ожидаемый результат в формате списка словарей
+        {
+            "id": 1245327.0,
+            "state": "PENDING",
+            "date": "2021-03-09T00:56:48Z",
+            "amount": 24252.0,
+            "currency_name": "Somoni",
+            "currency_code": "TJS",
+            "from": "Discover 3233958335206913",
+            "to": "Visa 6269545625045856",
+            "description": "Перевод с карты на карту",
+        },
+        {
+            "id": 134341.0,
+            "state": "CANCELED",
+            "date": "2022-03-03T08:41:08Z",
+            "amount": 13642.0,
+            "currency_name": "Peso",
+            "currency_code": "COP",
+            "from": "Visa 9770850749183268",
+            "to": "American Express 0522499169905654",
+            "description": "Перевод с карты на карту",
+        },
+    ]
+
+
+@pytest.fixture
+def mock_csv_file_path():
+    """Фикстура, предоставляющая фиктивный путь к CSV-файлу."""
+    return "fake/path/to/transactions.csv"
+
+
+@pytest.fixture
+def mock_excel_file_path():
+    """Фикстура, предоставляющая фиктивный путь к excel-файлу."""
+    return "fake/path/to/transactions_excel.xlsx"
