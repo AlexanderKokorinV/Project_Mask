@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import Dict, List, TypedDict, Union
 
 import pytest
 
@@ -148,7 +148,7 @@ def transaction_rub() -> Transaction:
 
 
 @pytest.fixture
-def mock_source_data():
+def mock_source_data() -> Dict[str, List[Union[int, float, str]]]:
     """Фикстура, предоставляющая исходные данные для mock DataFrame."""
     return {  # Создаем фиктивный DataFrame, который будет "возвращать" mock_read_csv/mock_read_excel
         "id": [1245327.0, 134341.0],
@@ -164,7 +164,7 @@ def mock_source_data():
 
 
 @pytest.fixture
-def expected_list_of_dicts():
+def expected_list_of_dicts() -> List[Dict[str, Union[int, float, str]]]:
     """Фикстура, предоставляющая ожидаемый итоговый результат."""
     return [  # Ожидаемый результат в формате списка словарей
         {
@@ -193,12 +193,12 @@ def expected_list_of_dicts():
 
 
 @pytest.fixture
-def mock_csv_file_path():
+def mock_csv_file_path() -> str:
     """Фикстура, предоставляющая фиктивный путь к CSV-файлу."""
     return "fake/path/to/transactions.csv"
 
 
 @pytest.fixture
-def mock_excel_file_path():
+def mock_excel_file_path() -> str:
     """Фикстура, предоставляющая фиктивный путь к excel-файлу."""
     return "fake/path/to/transactions_excel.xlsx"

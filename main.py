@@ -5,10 +5,10 @@ from src.decorators import log
 from src.external_api import get_amount_in_rubles
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 from src.masks import get_mask_account, get_mask_card_number
+from src.operations import get_operations_from_csv, get_operations_from_excel
 from src.processing import filter_by_state, sort_by_date
 from src.utils import get_transactions_from_json
 from src.widget import get_date, mask_account_card
-from src.operations import get_operations_from_csv, get_operations_from_excel
 
 
 class Currency(TypedDict):
