@@ -8,6 +8,7 @@ from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.utils import get_transactions_from_json
 from src.widget import get_date, mask_account_card
+from src.operations import get_operations_from_csv, get_operations_from_excel
 
 
 class Currency(TypedDict):
@@ -157,3 +158,9 @@ if __name__ == "__main__":
     print(get_transactions_from_json(PATH_TO_JASON_FILE))
 
     print(get_amount_in_rubles(transaction))  # конвертируем сумму из евро в рубли
+
+    PATH_TO_CSV_FILE = os.path.join(os.path.dirname(__file__), "data", "transactions.csv")
+    print(get_operations_from_csv(PATH_TO_CSV_FILE))
+
+    PATH_TO_EXCEL_FILE = os.path.join(os.path.dirname(__file__), "data", "transactions_excel.xlsx")
+    print(get_operations_from_excel(PATH_TO_EXCEL_FILE))
