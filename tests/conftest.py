@@ -1,4 +1,26 @@
+from typing import Dict, List, TypedDict, Union
+
 import pytest
+
+
+class Currency(TypedDict):
+    name: str
+    code: str
+
+
+class OperationAmount(TypedDict):
+    amount: str
+    currency: Currency
+
+
+class Transaction(TypedDict):
+    id: int
+    state: str
+    date: str
+    operationAmount: OperationAmount
+    description: str
+    from_: str
+    to: str
 
 
 @pytest.fixture
@@ -110,3 +132,73 @@ def start() -> int:
 @pytest.fixture
 def stop() -> int:
     return 5
+
+
+@pytest.fixture
+def transaction_rub() -> Transaction:
+    return {
+        "id": 667307132,
+        "state": "EXECUTED",
+        "date": "2019-07-13T18:51:29.313309",
+        "operationAmount": {"amount": "97853.86", "currency": {"name": "руб.", "code": "RUB"}},
+        "description": "Перевод с карты на счет",
+        "from_": "Maestro 1308795367077170",
+        "to": "Счет 96527012349577388612",
+    }
+
+
+@pytest.fixture
+def mock_source_data() -> Dict[str, List[Union[int, float, str]]]:
+    """Фикстура, предоставляющая исходные данные для mock DataFrame."""
+    return {  # Создаем фиктивный DataFrame, который будет "возвращать" mock_read_csv/mock_read_excel
+        "id": [1245327.0, 134341.0],
+        "state": ["PENDING", "CANCELED"],
+        "date": ["2021-03-09T00:56:48Z", "2022-03-03T08:41:08Z"],
+        "amount": [24252.0, 13642.0],
+        "currency_name": ["Somoni", "Peso"],
+        "currency_code": ["TJS", "COP"],
+        "from": ["Discover 3233958335206913", "Visa 9770850749183268"],
+        "to": ["Visa 6269545625045856", "American Express 0522499169905654"],
+        "description": ["Перевод с карты на карту", "Перевод с карты на карту"],
+    }
+
+
+@pytest.fixture
+def expected_list_of_dicts() -> List[Dict[str, Union[int, float, str]]]:
+    """Фикстура, предоставляющая ожидаемый итоговый результат."""
+    return [  # Ожидаемый результат в формате списка словарей
+        {
+            "id": 1245327.0,
+            "state": "PENDING",
+            "date": "2021-03-09T00:56:48Z",
+            "amount": 24252.0,
+            "currency_name": "Somoni",
+            "currency_code": "TJS",
+            "from": "Discover 3233958335206913",
+            "to": "Visa 6269545625045856",
+            "description": "Перевод с карты на карту",
+        },
+        {
+            "id": 134341.0,
+            "state": "CANCELED",
+            "date": "2022-03-03T08:41:08Z",
+            "amount": 13642.0,
+            "currency_name": "Peso",
+            "currency_code": "COP",
+            "from": "Visa 9770850749183268",
+            "to": "American Express 0522499169905654",
+            "description": "Перевод с карты на карту",
+        },
+    ]
+
+
+@pytest.fixture
+def mock_csv_file_path() -> str:
+    """Фикстура, предоставляющая фиктивный путь к CSV-файлу."""
+    return "fake/path/to/transactions.csv"
+
+
+@pytest.fixture
+def mock_excel_file_path() -> str:
+    """Фикстура, предоставляющая фиктивный путь к excel-файлу."""
+    return "fake/path/to/transactions_excel.xlsx"
