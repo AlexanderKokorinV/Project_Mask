@@ -23,6 +23,7 @@ def get_operations_from_csv(PATH_TO_CSV_FILE: str) -> Any:
         # Обработка любых других непредвиденных ошибок при чтении
         return []
 
+
 def get_operations_from_excel(PATH_TO_EXCEL_FILE: str) -> Any:
     """Принимаем путь к excel-файлу и возвращаем список словарей с транзакциями"""
     try:

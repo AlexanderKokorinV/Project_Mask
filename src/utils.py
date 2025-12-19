@@ -3,7 +3,6 @@ import logging
 import os
 from typing import Any
 
-
 PATH_TO_LOG_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs", "utils.log")
 utils_logger = logging.getLogger("utils")
 utils_logger.setLevel(logging.DEBUG)

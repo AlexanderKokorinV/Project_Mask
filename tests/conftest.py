@@ -129,7 +129,7 @@ def transactions() -> list[dict]:
             "description": "Перевод организации",
             "from": "Visa Platinum 1246377376343588",
             "to": "Счет 14211924144426031657",
-        }
+        },
     ]
 
 
@@ -215,10 +215,12 @@ def mock_excel_file_path() -> str:
     """Фикстура, предоставляющая фиктивный путь к excel-файлу."""
     return "fake/path/to/transactions_excel.xlsx"
 
+
 @pytest.fixture
 def search() -> str:
     """Фикстура для исходных данных в виде строки поискового запроса"""
     return "организации"
+
 
 @pytest.fixture
 def descriptions() -> List[str]:

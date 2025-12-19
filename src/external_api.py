@@ -38,7 +38,10 @@ def get_amount_in_rubles(transaction: Transaction) -> Any:
     """
     if transaction["operationAmount"]["currency"]["code"] == "RUB":
         return float(transaction["operationAmount"]["amount"])
-    elif transaction["operationAmount"]["currency"]["code"] == "USD" or transaction["operationAmount"]["currency"]["code"] == "EUR":
+    elif (
+        transaction["operationAmount"]["currency"]["code"] == "USD"
+        or transaction["operationAmount"]["currency"]["code"] == "EUR"
+    ):
         url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={transaction['operationAmount']['currency']['code']}&amount={transaction['operationAmount']['amount']}"
         payload: Dict[str, Any] = {}
         headers = {  # Создание заголовка с токеном доступа API

@@ -51,7 +51,7 @@ def test_filter_by_currency(transactions: List[Dict[str, Any]]) -> None:
     "transactions, currency, expected",
     [
         (
-            { # Тест при некорректном коде валюты
+            {  # Тест при некорректном коде валюты
                 "id": 939719570,
                 "state": "EXECUTED",
                 "date": "2018-06-30T02:08:58.425572",
@@ -64,7 +64,7 @@ def test_filter_by_currency(transactions: List[Dict[str, Any]]) -> None:
             "Завершение итерации",
         ),
         (
-            { # Тест при пустом значении кода валюты
+            {  # Тест при пустом значении кода валюты
                 "id": 873106923,
                 "state": "EXECUTED",
                 "date": "2019-03-23T01:09:46.296404",
@@ -76,7 +76,7 @@ def test_filter_by_currency(transactions: List[Dict[str, Any]]) -> None:
             "USD",
             "Завершение итерации",
         ),
-        ({}, "USD", "Завершение итерации"), #Тест при отсутствии данных (пустой словарь)
+        ({}, "USD", "Завершение итерации"),  # Тест при отсутствии данных (пустой словарь)
     ],
 )
 def test_filter_by_currency_par(transactions: List[Dict[str, Any]], currency: str, expected: str) -> None:
@@ -145,14 +145,15 @@ def test_card_number_generator(start: int, stop: int) -> None:
 @pytest.mark.parametrize(
     "start, stop, expected",
     [
-        (0, 0, []),
-        (0, 1, []),
-        (1, 0, []),
-        (3, 2, []),
+        (0, 0, "Ошибка"),
+        (0, 1, "Ошибка"),
+        (1, 0, "Ошибка"),
+        (3, 2, "Ошибка"),
+        (9999999999999999 + 1, 9999999999999999 + 2, "Ошибка"),
     ],
 )
-def test_card_number_generator_par(start: int, stop: int, expected: str) -> None:
-    """Тест работы функции при различных параметрах, вызывающих ошибку"""
-    for _ in range(4):
-        card_number = card_number_generator(start, stop)
-        assert next(card_number) == expected
+def test_card_number_generator_invalid_range(start: int, stop: int, expected: str) -> None:
+    """Тест генератора при некорректном диапазоне"""
+    gen = card_number_generator(start, stop)
+    result = next(gen, "Ошибка")
+    assert result == expected

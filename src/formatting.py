@@ -1,21 +1,17 @@
-from typing import List, Dict
+from typing import Dict, List
+
 from src.widget import get_date, mask_account_card
 
-transactions = [{
-    "id": 587085106,
-    "state": "EXECUTED",
-    "date": "2018-03-23T10:45:06.972075",
-    "operationAmount": {
-      "amount": "48223.05",
-      "currency": {
-        "name": "руб.",
-        "code": "RUB"
-      }
-    },
-    "description": "Открытие вклада",
-    "to": "Счет 41421565395219882431"
-  }]
-
+transactions = [
+    {
+        "id": 587085106,
+        "state": "EXECUTED",
+        "date": "2018-03-23T10:45:06.972075",
+        "operationAmount": {"amount": "48223.05", "currency": {"name": "руб.", "code": "RUB"}},
+        "description": "Открытие вклада",
+        "to": "Счет 41421565395219882431",
+    }
+]
 
 
 def format_transaction(transaction: Dict) -> str:
@@ -30,11 +26,11 @@ def format_transaction(transaction: Dict) -> str:
     description = transaction.get("description", "Описание отсутствует")
 
     amount = transaction.get("amount")
-    if not amount: # Если работаем с JSON-форматом
+    if not amount:  # Если работаем с JSON-форматом
         amount = transaction.get("operationAmount", {}).get("amount", 0.0)
 
     currency = transaction.get("currency_code")
-    if not currency: # Если работаем с JSON-форматом
+    if not currency:  # Если работаем с JSON-форматом
         currency = transaction.get("operationAmount", {}).get("currency", {}).get("code", "Валюта не указана")
 
     masked_from_info = ""
@@ -46,7 +42,7 @@ def format_transaction(transaction: Dict) -> str:
         # Маскировка номера карты или счета
         masked_from_info = mask_account_card(from_info)
 
-    #Форматирование получателя
+    # Форматирование получателя
     to_info = transaction.get("to", "")
     if to_info:
         # Маскировка номера карты или счета
@@ -54,22 +50,13 @@ def format_transaction(transaction: Dict) -> str:
 
     # Собираем итоговую строку для вывода
     formatted_transaction = (
-        f"{formatted_date} {description}\n"
-        f"{masked_from_info} -> {masked_to_info}\n"
-        f"{amount} {currency}\n\n"
+        f"{formatted_date} {description}\n" f"{masked_from_info} -> {masked_to_info}\n" f"{amount} {currency}\n\n"
     )
     return formatted_transaction
+
 
 def print_formatted_transactions(transactions: List[Dict]) -> None:
     """Выводим на экран отформатированные транзакции из итогового списка"""
     for transaction in transactions:
         formatted_transaction = format_transaction(transaction)
         print(formatted_transaction)
-
-
-
-
-
-
-
-

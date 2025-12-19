@@ -112,4 +112,28 @@ Finish function apply_get_mask_card_number at 2025-12-19 22:24:16.165350Start fu
 apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
 Finish function apply_get_mask_card_number at 2025-12-19 22:27:25.842423Start function apply_get_mask_card_number at 2025-12-19 22:27:25.844122
 apply_get_mask_card_number ok. Result: 7000 79** **** 6361
-Finish function apply_get_mask_card_number at 2025-12-19 22:27:25.844856
+Finish function apply_get_mask_card_number at 2025-12-19 22:27:25.844856Start function apply_get_mask_card_number at 2025-12-19 22:41:48.622890
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-19 22:41:48.623841Start function apply_get_mask_card_number at 2025-12-19 22:41:48.624995
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-19 22:41:48.626077Start function apply_get_mask_card_number at 2025-12-19 22:46:12.999947
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-19 22:46:13.000890Start function apply_get_mask_card_number at 2025-12-19 22:46:13.001945
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-19 22:46:13.002651Start function apply_get_mask_card_number at 2025-12-19 22:55:01.984113
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-19 22:55:01.985032Start function apply_get_mask_card_number at 2025-12-19 22:55:01.986051
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-19 22:55:01.986703Start function apply_get_mask_card_number at 2025-12-19 22:56:20.351449
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-19 22:56:20.352624Start function apply_get_mask_card_number at 2025-12-19 22:56:20.353889
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-19 22:56:20.354725Start function apply_get_mask_card_number at 2025-12-20 00:00:23.615139
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-20 00:00:23.616094Start function apply_get_mask_card_number at 2025-12-20 00:00:23.617152
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-20 00:00:23.617827Start function apply_get_mask_card_number at 2025-12-20 00:08:19.126106
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-20 00:08:19.127164Start function apply_get_mask_card_number at 2025-12-20 00:08:19.128356
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-20 00:08:19.129105
