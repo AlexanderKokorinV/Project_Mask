@@ -1,0 +1,162 @@
+from src.categories import count_categories
+from src.formatting import print_formatted_transactions
+from src.generators import filter_by_currency
+from src.operations import PATH_TO_CSV_FILE, PATH_TO_EXCEL_FILE, get_operations_from_csv, get_operations_from_excel
+from src.processing import filter_by_state, sort_by_date
+from src.search import search_transactions
+from src.utils import PATH_TO_JASON_FILE, get_transactions_from_json
+
+
+def main() -> None:
+    print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
+
+    final_transactions = []  # Создаем основную переменную, которая будет хранить текущее состояние списка
+
+    # Блок 1. Выбор файла и загрузка данных
+    while True:
+        choose_option = input(
+            """ 
+Выберите необходимый пункт меню:
+1. Получить информацию о транзакциях из JSON-файла
+2. Получить информацию о транзакциях из CSV-файла
+3. Получить информацию о транзакциях из XLSX-файла
+>
+            """
+        ).strip()  # Убираем случайные пробелы при вводе
+        if choose_option == "1":
+            print("Для обработки выбран JSON-файл.")
+            final_transactions = get_transactions_from_json(PATH_TO_JASON_FILE)
+            break
+        elif choose_option == "2":
+            print("Для обработки выбран CSV-файл.")
+            final_transactions = get_operations_from_csv(PATH_TO_CSV_FILE)
+            break
+        elif choose_option == "3":
+            print("Для обработки выбран XLSX-файл.")
+            final_transactions = get_operations_from_excel(PATH_TO_EXCEL_FILE)
+            break
+        else:
+            print("Ошибка, неверный ввод. Пожалуйста, выберите 1, 2 или 3.\n>")
+
+    if not final_transactions:
+        print("Не удалось загрузить транзакции. Завершение программы.")
+        return  # Выход из программы, если данных нет
+
+    # Блок 2. Фильтрация транзакций о статусу
+    while True:
+        state = (
+            str(
+                input(
+                    """Введите статус, по которому необходимо выполнить фильтрацию.
+Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING\n>"""
+                )
+            )
+            .strip()
+            .upper()
+        )
+        if state in ["EXECUTED", "CANCELED", "PENDING"]:
+            # Применяем фильтр к текущему списку и обновляем его
+            final_transactions = filter_by_state(final_transactions, state)
+            break
+        else:
+            print(f"Статус операции {state} недоступен.")
+
+    if not final_transactions:  # Проверка после блока 2
+        print("Транзакции с таким статусом не найдены")
+        return
+
+    # Блок 3. Сортировка транзакций по дате
+    while True:
+        sort_transactions_by_date = str(input("Отсортировать операции по дате? Да/Нет\n>")).strip().lower()
+        if sort_transactions_by_date == "да":
+            while True:
+                sort_direction = (
+                    str(
+                        input("Отсортировать по возрастанию или по убыванию? (введите: по возрастанию/по убыванию)\n>")
+                    )
+                    .strip()
+                    .lower()
+                )
+                if sort_direction == "по возрастанию":
+                    final_transactions = sort_by_date(final_transactions, ascending=False)
+                    break
+                elif sort_direction == "по убыванию":
+                    final_transactions = sort_by_date(final_transactions, ascending=True)
+                    break
+                else:
+                    print("Введено некорректное значение. Введите вариант сортировки: по возрастанию/по убыванию\n>")
+            break  # Выход из внешнего цикла "Да/Нет"
+        elif sort_transactions_by_date == "нет":
+            break  # Выход из цикла "Да/Нет"
+        else:
+            print("Введено некорректное значение. Введите вариант: Да/Нет\n>")
+
+    # Блок 4. Фильтрация транзакций по валюте (RUB)
+    while True:
+        get_ruble_transactions = str(input("Выводить только рублевые транзакции? Да/Нет\n>")).strip().lower()
+        if get_ruble_transactions == "да":
+            # Применяем фильтр к текущему списку и обновляем его
+            final_transactions = list(filter_by_currency(final_transactions, currency="RUB"))
+            break
+        elif get_ruble_transactions == "нет":
+            break
+        else:
+            print("Введено некорректное значение. Введите вариант: Да/Нет\n>")
+
+    if not final_transactions:  # Проверка после блока 4
+        print("Рублевые транзакции не найдены")
+        return
+
+    # Блок 5. Фильтрация по слову в описании транзакции
+    while True:
+        filter_by_category = (
+            str(input("Отфильтровать список транзакций по определенному слову в описании? Да/Нет\n>")).strip().lower()
+        )
+        if filter_by_category == "да":
+            search = (
+                str(
+                    input(
+                        """
+Введите слово для поиска. Возможные типы операций: 
+"Перевод организации", 
+"Перевод с карты на карту", 
+"Перевод со счета на счет", 
+"Открытие вклада"\n>
+                """
+                    )
+                )
+                .strip()
+                .lower()
+            )
+
+            # Применяем фильтр к текущему списку и обновляем его
+            final_transactions = search_transactions(final_transactions, search)
+            break
+        elif filter_by_category == "нет":
+            break
+        else:
+            print("Введено некорректное значение. Введите вариант: Да/Нет\n>")
+
+    if not final_transactions:  # Проверка после блока 5
+        print("Транзакции с таким описанием не найдены")
+        return
+
+    # Итоговый вывод результата
+    print("Распечатываю итоговый список транзакций...\n>")
+    if not final_transactions:
+        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
+    else:
+        print(f"Всего банковских операций в выборке: {len(final_transactions)}")
+        print_formatted_transactions(final_transactions)
+        descriptions = [transaction.get("description") for transaction in final_transactions]
+        get_quantity_per_category = count_categories(final_transactions, descriptions)
+        if not get_quantity_per_category:
+            return
+        else:
+            print("Количество транзакций по категориям:")
+            for category, count in get_quantity_per_category.items():
+                print(f"{category}: {count}")
+
+
+if __name__ == "__main__":
+    main()
