@@ -14,6 +14,8 @@ from src.masks import get_mask_account, get_mask_card_number
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
 from src.search import search_transactions
+from src.formatting import print_formatted_transactions
+from src.categories import count_categories
 
 
 def main():
@@ -61,8 +63,12 @@ def main():
             break
         else:
             print(f"Статус операции {state} недоступен.")
-    # Блок 3. Сортировка транзакций по дате
 
+    if not final_transactions: # Проверка после блока 2
+        print("Транзакции с таким статусом не найдены")
+        return
+
+    # Блок 3. Сортировка транзакций по дате
     while True:
         sort_transactions_by_date = str(input("Отсортировать операции по дате? Да/Нет\n>")).strip().lower()
         if sort_transactions_by_date == "да":
@@ -94,6 +100,10 @@ def main():
         else:
             print("Введено некорректное значение. Введите вариант: Да/Нет\n>")
 
+    if not final_transactions: # Проверка после блока 4
+        print("Рублевые транзакции не найдены")
+        return
+
     #Блок 5. Фильтрация по слову в описании транзакции
     while True:
         filter_by_category = str(input("Отфильтровать список транзакций по определенному слову в описании? Да/Нет\n>")).strip().lower()
@@ -116,13 +126,25 @@ def main():
         else:
             print("Введено некорректное значение. Введите вариант: Да/Нет\n>")
 
+    if not final_transactions: # Проверка после блока 5
+        print("Транзакции с таким описанием не найдены")
+        return
+
     # Итоговый вывод результата
     print("Распечатываю итоговый список транзакций...\n>")
     if not final_transactions:
-        print("Не найдено ни одной транзакции, соответствующей заданным условиям")
+        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
-        print(f"Всего найдено транзакций: {len(final_transactions)}")
-        print(final_transactions)
+        print(f"Всего банковских операций в выборке: {len(final_transactions)}")
+        print_formatted_transactions(final_transactions)
+        descriptions = [transaction.get("description") for transaction in final_transactions]
+        get_quantity_per_category = count_categories(final_transactions, descriptions)
+        if not get_quantity_per_category:
+            return
+        else:
+            print("Количество транзакций по категориям:")
+            for category, count in get_quantity_per_category.items():
+                print(f"{category}: {count}")
 
 
 
