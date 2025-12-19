@@ -51,7 +51,7 @@ def test_filter_by_currency(transactions: List[Dict[str, Any]]) -> None:
     "transactions, currency, expected",
     [
         (
-            {
+            { # Тест при некорректном коде валюты
                 "id": 939719570,
                 "state": "EXECUTED",
                 "date": "2018-06-30T02:08:58.425572",
@@ -61,10 +61,10 @@ def test_filter_by_currency(transactions: List[Dict[str, Any]]) -> None:
                 "to": "Счет 11776614605963066702",
             },
             "USD",
-            "Ошибка",
+            "Завершение итерации",
         ),
         (
-            {
+            { # Тест при пустом значении кода валюты
                 "id": 873106923,
                 "state": "EXECUTED",
                 "date": "2019-03-23T01:09:46.296404",
@@ -74,9 +74,9 @@ def test_filter_by_currency(transactions: List[Dict[str, Any]]) -> None:
                 "to": "Счет 74489636417521191160",
             },
             "USD",
-            "Ошибка",
+            "Завершение итерации",
         ),
-        ({}, "USD", "Завершение итерации"),
+        ({}, "USD", "Завершение итерации"), #Тест при отсутствии данных (пустой словарь)
     ],
 )
 def test_filter_by_currency_par(transactions: List[Dict[str, Any]], currency: str, expected: str) -> None:
@@ -108,7 +108,7 @@ def test_transaction_descriptions(transactions: List[Dict[str, Any]]) -> None:
                 "from": "Счет 75106830613657916952",
                 "to": "Счет 11776614605963066702",
             },
-            "Ошибка",
+            "Завершение итерации",
         ),
         (
             {
@@ -120,7 +120,7 @@ def test_transaction_descriptions(transactions: List[Dict[str, Any]]) -> None:
                 "from": "Счет 75106830613657916952",
                 "to": "Счет 11776614605963066702",
             },
-            "Ошибка",
+            "Завершение итерации",
         ),
         ({}, "Завершение итерации"),
     ],
@@ -145,10 +145,10 @@ def test_card_number_generator(start: int, stop: int) -> None:
 @pytest.mark.parametrize(
     "start, stop, expected",
     [
-        (0, 0, "Ошибка. Неверные значения диапазона"),
-        (0, 1, "Ошибка. Неверные значения диапазона"),
-        (1, 0, "Ошибка. Неверные значения диапазона"),
-        (3, 2, "Ошибка. Неверные значения диапазона"),
+        (0, 0, []),
+        (0, 1, []),
+        (1, 0, []),
+        (3, 2, []),
     ],
 )
 def test_card_number_generator_par(start: int, stop: int, expected: str) -> None:

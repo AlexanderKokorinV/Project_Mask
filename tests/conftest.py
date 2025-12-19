@@ -25,31 +25,37 @@ class Transaction(TypedDict):
 
 @pytest.fixture
 def card_numbers() -> str:
+    """Фикстура для исходных данных в виде номера банковской карты"""
     return "7000792289606361"
 
 
 @pytest.fixture
 def account_numbers() -> str:
+    """Фикстура для исходных данных в виде банковского счета"""
     return "73654108430135874305"
 
 
 @pytest.fixture
 def card() -> str:
+    """Фикстура для исходных данных в виде названия и номера банковской карты"""
     return "Visa Platinum 7000792289606361"
 
 
 @pytest.fixture
 def account() -> str:
+    """Фикстура для исходных данных в виде банковского счета"""
     return "Счет 73654108430135874305"
 
 
 @pytest.fixture
 def date_str() -> str:
+    """Фикстура для исходных данных в виде даты транзакции"""
     return "2024-03-11T02:26:18.671407"
 
 
 @pytest.fixture
 def operation_data() -> list[dict]:
+    """Фикстура для исходных данных в виде списка транзакций"""
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
@@ -60,6 +66,7 @@ def operation_data() -> list[dict]:
 
 @pytest.fixture
 def operation_data_same_date() -> list[dict]:
+    """Фикстура для исходных данных с одинаковыми датами транзакций"""
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -69,12 +76,14 @@ def operation_data_same_date() -> list[dict]:
 
 
 @pytest.fixture
-def operation_status() -> str:
+def state() -> str:
+    """Фикстура для исходных данных в виде передаваемого статуса транзакции"""
     return "EXECUTED"
 
 
 @pytest.fixture
 def transactions() -> list[dict]:
+    """Фикстура для исходных данных в виде списка транзакций"""
     return [
         {
             "id": 939719570,
@@ -120,22 +129,25 @@ def transactions() -> list[dict]:
             "description": "Перевод организации",
             "from": "Visa Platinum 1246377376343588",
             "to": "Счет 14211924144426031657",
-        },
+        }
     ]
 
 
 @pytest.fixture
 def start() -> int:
+    """Фикстура для исходных данных в виде начального значения диапазона"""
     return 1
 
 
 @pytest.fixture
 def stop() -> int:
+    """Фикстура для исходных данных в виде конечного значения диапазона"""
     return 5
 
 
 @pytest.fixture
 def transaction_rub() -> Transaction:
+    """Фикстура для исходных данных в виде рублевой транзакции"""
     return {
         "id": 667307132,
         "state": "EXECUTED",
@@ -202,3 +214,8 @@ def mock_csv_file_path() -> str:
 def mock_excel_file_path() -> str:
     """Фикстура, предоставляющая фиктивный путь к excel-файлу."""
     return "fake/path/to/transactions_excel.xlsx"
+
+@pytest.fixture
+def search() -> str:
+    """Фикстура для исходных данных в виде строки поискового запроса"""
+    return "организации"

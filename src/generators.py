@@ -66,8 +66,8 @@ def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
                     )
                     yield str(card_number)
             else:
-                raise ValueError("Ошибка. Неверные значения диапазона")
+                raise ValueError
         else:
-            raise ValueError("Ошибка. Неверные значения диапазона")
+            raise ValueError
     except ValueError:
         yield []

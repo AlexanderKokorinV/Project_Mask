@@ -22,7 +22,7 @@ def search_transactions(transactions: List[Dict], search: str) -> List[Dict]:
             if description and re.search(search_query, description, flags=re.IGNORECASE):
                 filtered_transactions.append(transaction)
 
-        return filtered_transactions
+    return filtered_transactions
 
 
 
