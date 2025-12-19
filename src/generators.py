@@ -1,44 +1,48 @@
 import re
 from typing import Any, Dict, Generator, Iterator, List
 
+from src.utils import PATH_TO_JASON_FILE, get_transactions_from_json
+from src.operations import PATH_TO_CSV_FILE, PATH_TO_EXCEL_FILE, get_operations_from_csv, get_operations_from_excel
 
-def filter_by_currency(transactions: List[Dict[str, Any]], currency: str) -> Iterator:
+transactions_json = get_transactions_from_json(PATH_TO_JASON_FILE)
+transactions_csv = get_operations_from_csv(PATH_TO_CSV_FILE)
+transactions_excel = get_operations_from_excel(PATH_TO_EXCEL_FILE)
+
+
+
+def filter_by_currency(transactions: List[Dict], currency: str) -> Iterator:
     """Функция возвращает итератор, который поочередно выдает транзакции с
     заданной валютой операции"""
-    try:
-        for transaction in transactions:
-            if (
-                transaction.get("operationAmount", "Ошибка").get("currency", "Ошибка").get("code", "Ошибка")
-                == currency
-            ):
+    if not isinstance(transactions, list):
+        return iter([]) # Если входные данные не список, возвращаем пустой итератор
+
+    for transaction in transactions:
+        try:
+            currency_code = transaction["operationAmount"]["currency"]["code"]
+            if currency_code == currency:
                 yield transaction
-            elif transaction.get("operationAmount", "Ошибка").get("currency", "Ошибка").get("code", "Ошибка") not in [
-                "USD",
-                "RUB",
-            ]:
-                raise ValueError("Ошибка")
-    except ValueError:
-        yield "Ошибка"
-    except AttributeError:
-        yield "Ошибка"
+        except KeyError:
+            continue
+        except ValueError:
+            continue
+        except AttributeError:
+            continue
 
-
-def transaction_descriptions(transactions: List[Dict[str, Any]]) -> Iterator:
+def transaction_descriptions(transactions: List[Dict]) -> Iterator:
     """Функция-генератор, которая принимает список словарей с транзакциями и
     возвращает описание каждой операции по очереди"""
-    try:
-        for transaction in transactions:
-            if len(transaction.get("description", "Ошибка")) > 0 and re.fullmatch(
-                r"[а-яА-Яa-zA-Z \s-]+", transaction.get("description", "Ошибка")
-            ):
-                transaction_description = transaction.get("description", "Ошибка")
-                yield transaction_description
-            else:
-                raise ValueError("Ошибка")
-    except ValueError:
-        yield "Ошибка"
-    except AttributeError:
-        yield "Ошибка"
+    if not isinstance(transactions, list): # Если входные данные не являются списком, завершаем работу
+        return
+
+    for transaction in transactions:
+        if not isinstance(transaction, dict): # Проверяем, что transaction — это словарь
+            continue
+
+        description = transaction.get("description", "")
+
+        if isinstance(description, str) and description.strip(): # Проверяем, что описание — это строка и она не пустая
+            yield description.strip()
+
 
 
 def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
@@ -66,4 +70,4 @@ def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
         else:
             raise ValueError("Ошибка. Неверные значения диапазона")
     except ValueError:
-        yield "Ошибка. Неверные значения диапазона"
+        yield []

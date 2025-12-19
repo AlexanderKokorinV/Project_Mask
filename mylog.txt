@@ -16,4 +16,20 @@ Finish function apply_get_mask_card_number at 2025-12-16 16:25:20.770369Start fu
 apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
 Finish function apply_get_mask_card_number at 2025-12-16 16:25:58.884483Start function apply_get_mask_card_number at 2025-12-16 16:25:58.886339
 apply_get_mask_card_number ok. Result: 7000 79** **** 6361
-Finish function apply_get_mask_card_number at 2025-12-16 16:25:58.887226
+Finish function apply_get_mask_card_number at 2025-12-16 16:25:58.887226Start function apply_get_mask_card_number at 2025-12-19 09:35:51.061837
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-19 09:35:51.062762Start function apply_get_mask_card_number at 2025-12-19 09:35:51.063803
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-19 09:35:51.064475Start function apply_get_mask_card_number at 2025-12-19 09:37:05.016648
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-19 09:37:05.017669Start function apply_get_mask_card_number at 2025-12-19 09:37:05.018696
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-19 09:37:05.019376Start function apply_get_mask_card_number at 2025-12-19 09:37:17.384964
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-19 09:37:17.385865Start function apply_get_mask_card_number at 2025-12-19 09:37:17.387029
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-19 09:37:17.387713Start function apply_get_mask_card_number at 2025-12-19 09:37:31.527187
+apply_get_mask_card_number error: ValueError. Inputs: ('700079228960^&@1',), {}
+Finish function apply_get_mask_card_number at 2025-12-19 09:37:31.527998Start function apply_get_mask_card_number at 2025-12-19 09:37:31.528978
+apply_get_mask_card_number ok. Result: 7000 79** **** 6361
+Finish function apply_get_mask_card_number at 2025-12-19 09:37:31.529640
