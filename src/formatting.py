@@ -31,7 +31,7 @@ def format_transaction(transaction: Dict) -> str:
 
     amount = transaction.get("amount")
     if not amount: # Если работаем с JSON-форматом
-        amount = transaction.get("operationAmount").get("amount", 0.0)
+        amount = transaction.get("operationAmount", {}).get("amount", 0.0)
 
     currency = transaction.get("currency_code")
     if not currency: # Если работаем с JSON-форматом
@@ -60,13 +60,11 @@ def format_transaction(transaction: Dict) -> str:
     )
     return formatted_transaction
 
-def print_formatted_transactions(transactions: List[Dict]) -> str:
+def print_formatted_transactions(transactions: List[Dict]) -> None:
     """Выводим на экран отформатированные транзакции из итогового списка"""
     for transaction in transactions:
         formatted_transaction = format_transaction(transaction)
         print(formatted_transaction)
-
-
 
 
 

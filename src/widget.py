@@ -26,7 +26,10 @@ def mask_account_card(type_number: str) -> str:
 def get_date(date_string: str) -> str:
     """Принимает строку с датой и возвращает дату в заданном формате"""
     if (
-        date_string[8:10].isdigit()
+        len(date_string) >= 10
+        and date_string[4] == "-"
+        and date_string[7] == "-"
+        and date_string[8:10].isdigit()
         and date_string[5:7].isdigit()
         and date_string[:4].isdigit()
     ):
